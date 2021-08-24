@@ -78,3 +78,42 @@ class PerformActivity(Action):
 
     def perform(self):
         self.engine.process_activity(self.type)
+
+class UnlockCounty(Action):
+    def __init__(self, engine):
+        super().__init__(engine)
+
+    def perform(self):
+        self.engine.unlock_selected_county()
+
+class AdvanceTurn(Action):
+    def __init__(self, engine):
+        super().__init__(engine)
+
+    def perform(self):
+        self.engine.advance_turn()
+
+class AddActivity(Action):
+    def __init__(self, engine, type) -> None:
+        super().__init__(engine)
+        self.type = type
+    
+    def perform(self) -> None:
+        return self.engine.add_activity(self.type)
+
+class RemoveActivity(Action):
+    def __init__(self, engine, type) -> None:
+        super().__init__(engine)
+        self.type = type
+    
+    def perform(self) -> None:
+        return self.engine.remove_activity(self.type)
+
+class EnactPolicy(Action):
+    def __init__(self, engine, type) -> None:
+        super().__init__(engine)
+        self.type = type
+    
+    def perform(self) -> None:
+        return self.engine.enact_policy(self.type)
+

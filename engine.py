@@ -22,7 +22,8 @@ from sections.activities_bar import ActivitiesBar
 from sections.statbar import Statbar
 from sections.county_info import CountyInfo
 from utils.delta_time import DeltaTime
-from activities import Activities
+from verbs.activities import Activities
+from verbs.policies import policies
 
 from counties.county_manager import CountyManager
 
@@ -58,8 +59,11 @@ class Engine:
         self.county_manager = CountyManager()
         self.county_manager.create_counties()
 
+        self.activity_points = 5
         self.power = 0
         self.support = 0
+
+        self.turn_number = 1
         
 
     def render(self, root_console: Console) -> None:
@@ -73,7 +77,9 @@ class Engine:
                 root_console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
             root_console.print(3,1, "Power:" + str(self.power))
-            root_console.print(3,3, "Support:" + str(self.support))
+            root_console.print(3,2, "Support:" + str(self.support))
+            root_console.print(3,3, "Turn Number:" + str(self.turn_number))
+            root_console.print(3,4, "Activity Points:" + str(self.activity_points))
 
         if self.full_screen_effect.in_effect == True:
             self.full_screen_effect.render(root_console)
@@ -173,20 +179,39 @@ class Engine:
             self.music_timer.cancel()
         raise SystemExit()
 
+    def unlock_selected_county(self):
+        cost = self.county_manager.get_selected_county().unlock_cost
 
-    def process_activity(self, type: Activities):
-        pow = sup = 0
+        if self.power >= cost:
+            self.county_manager.unlock_selected_county()
+            self.power -= cost
 
-        if type is Activities.ARSON:
-            pow = 100
-            sup = -50
-        elif type is Activities.BREAKING:
-            pow = 50
-            sup = 10
+    def advance_turn(self):
 
-        pow, sup = self.county_manager.process_activity(type, pow, sup)
+        #Process news article based on what activities are about to happen
 
-        self.power += pow
-        self.support += sup
+        for county, values in self.county_manager.process_all_activites().items():
+            print(county + " - DPower: " + str(values[0]) + " DSupport: " + str(values[1]))
+            self.power += values[0]
+            self.support += values[1]
 
+        self.turn_number += 1
+        self.activity_points = 5
 
+    def add_activity(self, type):
+        if self.activity_points > 0:
+            self.county_manager.add_activity(type)
+            self.activity_points -= 1
+        else:
+            print("Not enough activity points to add activity " + str(type) + " to " + self.county_manager.get_selected_county().name)
+
+    def remove_activity(self, type):
+        if self.county_manager.remove_activity(type):
+            self.activity_points += 1
+
+    def enact_policy(self, type):
+        if self.support >= policies[type].cost:
+            self.county_manager.enact_policy(type)
+            self.support -= policies[type].cost
+        else:
+            print("Not enough support to enact " + str(type) + " in " + self.county_manager.get_selected_county().name)
