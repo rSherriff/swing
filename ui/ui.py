@@ -60,6 +60,11 @@ class UI:
         element.x = element.x + self.x
         element.y = element.y + self.y
         self.elements.append(element)
+        self.sort_elements()
+
+    def sort_elements(self):
+        self.elements.sort(key = lambda element: element.render_order)
+
 
 class UIElement:
     def __init__(self, x, y, width, height):
@@ -68,6 +73,7 @@ class UIElement:
         self.width = width
         self.height = height
         self.mouseover = False
+        self.render_order = 0
         pass
 
     def render(self, console: Console):
@@ -233,7 +239,55 @@ class HoverTrigger(UIElement):
 
     def on_mousedown(self):
         pass
+
+class Tooltip(UIElement):
+    def __init__(self, x: int, y: int, width: int, height:int, x_offset: int, y_offset: int, text: str):
+        super().__init__(x,y,width,height)
+
+        self.visible = False
+
+        self.render_width = 0
+        self.render_height = 1
+        self.x_offset = x_offset
+        self.y_offset = y_offset
+
+        self.lines = list()
+        self.lines = text.split('\n')
+        self.render_height = len(self.lines) + 2
+        for l in self.lines:
+            self.render_width = max(self.render_width, len(l) + 2)
+
+        self.render_order = 1000
+
+    def on_mouseenter(self):
+        self.visible = True
+        
+    def on_mouseleave(self):
+        self.visible = False
+
+    def on_mousedown(self):
+        pass
+
+    def render(self, console: Console):
+        if self.visible == True:
+            temp_console = Console(width=self.render_width, height=self.render_height, order="F")
+
+            for h in range(0,self.render_height):
+                for w in range(0, self.render_width):
+                    temp_console.tiles_rgb[w,h][2] = (255,255,255) 
+
+            count = 1
+            for l in self.lines:
+                temp_console.print(1, count, l, (0,0,0))
+                count += 1
+
+            temp_console.blit(console, self.x + self.x_offset, self.y+self.y_offset)
     
+def ele_comp(a:UIElement, b:UIElement):
+    if a is Tooltip:
+        return b
+    else:
+        return a
 
 def get_letter_key(key):
     if key == tcod.event.K_a:

@@ -155,12 +155,6 @@ class Engine:
         self.state = GameState.COMPLETE
         self.full_screen_effect.start()
 
-    def show_tooltip(self, key):
-        self.tooltips[key].invisible = False
-
-    def hide_tooltip(self, key):
-        self.tooltips[key].invisible = True
-
     def get_delta_time(self):
         return self.delta_time.get_delta_time()
 
