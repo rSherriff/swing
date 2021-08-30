@@ -54,7 +54,7 @@ class MeltWipeEffect(Effect):
                                         dest_x=col, dest_y= int(self.current_wipe_heights[col]), 
                                         width=1, height=self.height - int(self.current_wipe_heights[col]))
 
-        self.time_alive += 0.16
+        self.time_alive += self.engine.get_delta_time()
         if columns_finished == True:
             self.stop()
 

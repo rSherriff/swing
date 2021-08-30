@@ -1,0 +1,94 @@
+{
+  "counties": [
+    {
+      "name": "Kent",
+      "unlock_cost": 0,
+      "unlocked": true,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Sussex",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Surrey",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Berkshire",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Hampshire",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Wiltshire",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Buckinghamshire",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Hertfordshire",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Bedfordshire",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    },
+    {
+      "name": "Dorset",
+      "unlock_cost": 0,
+      "unlocked": false,
+      "wage": 0,
+      "tithes": 0,
+      "rent": 0,
+      "cereal_percent": 0
+    }
+  ]
+}

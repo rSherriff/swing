@@ -45,6 +45,10 @@ class MainGameEventHandler(EventHandler):
                 action.perform()
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> None:
+
+        if self.engine.is_ui_paused():
+            return
+
         action: Optional[Action] = None
 
         key = event.sym
@@ -57,6 +61,7 @@ class MainGameEventHandler(EventHandler):
                 section.ui.keydown(event)
 
     def ev_mousemotion(self, event: tcod.event.MouseMotion) -> None:
+
         self.engine.mouse_location = self.current_context.pixel_to_tile(event.pixel.x, event.pixel.y)
 
         for _, section in self.engine.get_active_sections():
@@ -64,6 +69,10 @@ class MainGameEventHandler(EventHandler):
                 section.ui.mousemove(self.engine.mouse_location[0], self.engine.mouse_location[1])
 
     def ev_mousebuttondown(self, event: tcod.event.MouseButtonDown) -> Optional[list(Action)]:
+    
+        if self.engine.is_ui_paused():
+            return
+
         actions = []
 
         self.mouse_down_location = self.engine.mouse_location

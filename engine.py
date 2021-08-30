@@ -13,6 +13,8 @@ from tcod.console import Console
 import tile_types
 from application_path import get_app_path
 from effects.melt_effect import MeltWipeEffect, MeltWipeEffectType
+from effects.horizontal_wipe_effect import HorizontalWipeDirection, HorizontalWipeEffect
+from effects.vertical_wipe_effect import VerticalWipeDirection, VerticalWipeEffect
 from entities.player import Player
 from input_handlers import EventHandler, MainGameEventHandler
 from sections.menu import Menu
@@ -21,9 +23,10 @@ from sections.map import Map
 from sections.activities_bar import ActivitiesBar
 from sections.statbar import Statbar
 from sections.county_info import CountyInfo
+from sections.turn_summary import TurnSummary
 from utils.delta_time import DeltaTime
 from verbs.activities import Activities
-from verbs.policies import policies
+from verbs.policies import policy_templates
 
 from counties.county_manager import CountyManager
 
@@ -31,6 +34,7 @@ from counties.county_manager import CountyManager
 class GameState(Enum):
     MENU = auto()
     IN_GAME = auto()
+    TURN_SUMMARY = auto() 
     GAME_OVER = auto()
     COMPLETE = auto()
 
@@ -57,13 +61,13 @@ class Engine:
         self.state = GameState.IN_GAME
 
         self.county_manager = CountyManager()
-        self.county_manager.create_counties()
 
         self.activity_points = 5
         self.power = 0
         self.support = 0
 
         self.turn_number = 1
+        self.turn_summary_text = list()
         
 
     def render(self, root_console: Console) -> None:
@@ -85,6 +89,11 @@ class Engine:
             self.full_screen_effect.render(root_console)
         else:
             self.full_screen_effect.set_tiles(root_console.tiles_rgb)
+        
+        if self.end_turn_effect.in_effect == True:
+            self.end_turn_effect.render(root_console)
+        else:
+            self.end_turn_effect.set_tiles(root_console.tiles_rgb)
 
     def update(self):
         """ Engine update tick """
@@ -114,7 +123,8 @@ class Engine:
         self.tick_length = 2
 
     def setup_effects(self): 
-        self.full_screen_effect = MeltWipeEffect(self, 0, 0, self.screen_width, self.screen_height, MeltWipeEffectType.RANDOM, 100)
+        self.full_screen_effect = MeltWipeEffect(self, 0, 0, self.screen_width, self.screen_height, MeltWipeEffectType.RANDOM, 40)
+        self.end_turn_effect = HorizontalWipeEffect(self, 0,0, self.screen_width, self.screen_height)
 
     def setup_sections(self):
         self.menu_sections = {}
@@ -126,6 +136,9 @@ class Engine:
         self.game_sections["countyinfo"] = CountyInfo(self,75, 5, 53, 54)
         self.game_sections["actionsbar"] = ActivitiesBar(self,0, 54, self.screen_width, 10)
 
+        self.turn_summary_sections = {}
+        self.turn_summary_sections["turnsummary"] = TurnSummary(self,30, 9, 68, 46)
+
         self.completion_sections = {}
 
         self.disabled_sections = []
@@ -133,10 +146,18 @@ class Engine:
     def get_active_sections(self):
         if self.state == GameState.MENU:
             return self.menu_sections.items()
-        elif self.state == GameState.IN_GAME or self.state == GameState.GAME_OVER:
+        elif self.state == GameState.IN_GAME:
             return self.game_sections.items()
+        elif self.state == GameState.TURN_SUMMARY:
+            return self.turn_summary_sections.items()
         elif self.state == GameState.COMPLETE:
             return self.completion_sections.items()
+
+    def enable_section(self, section):
+        self.disabled_sections.remove(section)
+
+    def disable_section(self, section):
+        self.disabled_sections.append(section)
 
     def close_menu(self):
         self.state = GameState.IN_GAME
@@ -181,16 +202,25 @@ class Engine:
             self.power -= cost
 
     def advance_turn(self):
-
+        self.turn_summary_text.clear()
+        
         #Process news article based on what activities are about to happen
 
         for county, values in self.county_manager.process_all_activites().items():
-            print(county + " - DPower: " + str(values[0]) + " DSupport: " + str(values[1]))
+            summary_text = county + " - DPower: " + str(values[0]) + " DSupport: " + str(values[1])
+            self.turn_summary_text.append(summary_text)
+            print(summary_text)
             self.power += values[0]
             self.support += values[1]
 
         self.turn_number += 1
         self.activity_points = 5
+        self.state = GameState.TURN_SUMMARY
+        self.end_turn_effect.start(HorizontalWipeDirection.RIGHT)
+
+    def close_turn_summary(self):
+        self.state = GameState.IN_GAME
+        self.end_turn_effect.start(HorizontalWipeDirection.RIGHT)
 
     def add_activity(self, type):
         if self.activity_points > 0:
@@ -204,8 +234,11 @@ class Engine:
             self.activity_points += 1
 
     def enact_policy(self, type):
-        if self.support >= policies[type].cost:
+        if self.support >= policy_templates[type].cost:
             self.county_manager.enact_policy(type)
-            self.support -= policies[type].cost
+            self.support -= policy_templates[type].cost
         else:
             print("Not enough support to enact " + str(type) + " in " + self.county_manager.get_selected_county().name)
+    
+    def is_ui_paused(self):
+        return self.full_screen_effect.in_effect or self.end_turn_effect.in_effect

@@ -117,3 +117,18 @@ class EnactPolicy(Action):
     def perform(self) -> None:
         return self.engine.enact_policy(self.type)
 
+class DisableSection(Action):
+    def __init__(self, engine, section) -> None:
+        super().__init__(engine)
+        self.section = section
+    
+    def perform(self) -> None:
+        return self.engine.disable_section(self.section)
+
+class CloseTurnSummary(Action):
+    def __init__(self, engine) -> None:
+        super().__init__(engine)
+    
+    def perform(self) -> None:
+        return self.engine.close_turn_summary()
+

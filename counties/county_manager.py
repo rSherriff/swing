@@ -1,27 +1,26 @@
-from counties.county import County
+import json
 
 from verbs.activities import Activities
+
+from counties.county import County
+
 
 class CountyManager():
     def __init__(self):
         self.counties = {}
         self.selected_county = ""
+        with open ( "data/counties.json" ) as f:
+            data = json.load(f)
+            for c in data["counties"]:
+                county = County()
+                county.name = c["name"]
+                county.unlock_cost = c["unlock_cost"]
+                county.unlocked = c["unlocked"]
+                county.wage = c["wage"]
+                county.rent = c["rent"]
+                county.tithes = c["tithes"]
 
-    def create_counties(self):
-        kent = County()
-        kent.name = "Kent"
-        kent.unlocked = True
-        self.counties[kent.name] = kent
-
-        sussex = County()
-        sussex.name = "Sussex"
-        sussex.unlock_cost = 100
-        self.counties[sussex.name] = sussex
-
-        surrey = County()
-        surrey.name = "Surrey"
-        surrey.unlock_cost = 500
-        self.counties[surrey.name] = surrey
+                self.counties[county.name] = county
 
     def get_county(self, name):
         if name in self.counties:

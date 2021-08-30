@@ -35,4 +35,4 @@ class VerticalWipeEffect(Effect):
 
         temp_console.blit(console, src_x=self.x, src_y=self.y , dest_x=0, dest_y=0 + int(self.current_wipe_height), width=self.width, height=self.height - int(self.current_wipe_height))
 
-        self.time_alive += 0.16
+        self.time_alive += self.engine.get_delta_time()

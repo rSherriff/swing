@@ -122,11 +122,33 @@ class Button(UIElement):
 
         temp_console.blit(console, self.x, self.y)
 
-        
-
     def on_mousedown(self):
         self.click_action.perform()
 
+class ShapedButton(Button):
+    def __init__(self, x: int, y: int, width: int, height: int, click_action: Action, tiles, active_tiles):
+        super().__init__(x,y,width,height,click_action,tiles)
+        self.active_tiles = active_tiles
+
+    def render(self, console: Console):
+        temp_console = Console(width=self.width, height=self.height, order="F")
+
+        for h in range(0,self.height):
+            for w in range(0, self.width):
+                temp_console.tiles_rgb[w,h] = self.tiles[w,h]
+
+        if self.mouseover:
+            for tile in self.active_tiles:
+                temp_console.tiles_rgb[tile[0],tile[1]][2] = (0,255,0)
+
+        temp_console.blit(console, self.x, self.y)
+
+    def is_mouseover(self, x,y):
+        for tile in self.active_tiles:
+            if tile[0] == int(x - self.x) and tile[1] == int(y - self.y):
+                return True
+        return False
+            
 class Input(UIElement):
     def __init__(self, x: int, y: int, width: int, height: int):
         super().__init__(x,y,width,height)
@@ -245,6 +267,7 @@ class Tooltip(UIElement):
         super().__init__(x,y,width,height)
 
         self.visible = False
+        self.visibleTimer = 5
 
         self.render_width = 0
         self.render_height = 1
@@ -257,18 +280,25 @@ class Tooltip(UIElement):
         for l in self.lines:
             self.render_width = max(self.render_width, len(l) + 2)
 
-        self.render_order = 1000
+        self.render_order = 5
 
     def on_mouseenter(self):
-        self.visible = True
+        pass
         
     def on_mouseleave(self):
+        self.visibleTimer = 5
         self.visible = False
+        
 
     def on_mousedown(self):
         pass
 
     def render(self, console: Console):
+        if self.mouseover:
+            self.visibleTimer -= 0.17
+        if self.visibleTimer < 0:
+            self.visible = True
+
         if self.visible == True:
             temp_console = Console(width=self.render_width, height=self.render_height, order="F")
 
