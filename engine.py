@@ -24,6 +24,7 @@ from sections.activities_bar import ActivitiesBar
 from sections.statbar import Statbar
 from sections.county_info import CountyInfo
 from sections.turn_summary import TurnSummary
+from sections.confirmation import Confirmation
 from utils.delta_time import DeltaTime
 from verbs.activities import Activities
 from verbs.policies import policy_templates
@@ -34,9 +35,10 @@ from counties.county_manager import CountyManager
 class GameState(Enum):
     MENU = auto()
     IN_GAME = auto()
-    TURN_SUMMARY = auto() 
+    TURN_SUMMARY = auto()
     GAME_OVER = auto()
     COMPLETE = auto()
+
 
 class Engine:
     def __init__(self, teminal_width: int, terminal_height: int):
@@ -68,7 +70,6 @@ class Engine:
 
         self.turn_number = 1
         self.turn_summary_text = list()
-        
 
     def render(self, root_console: Console) -> None:
         """ Renders the game to console """
@@ -78,18 +79,20 @@ class Engine:
 
         if self.state == GameState.IN_GAME or self.state == GameState.GAME_OVER:
             for entity in self.entities:
-                root_console.print(entity.x, entity.y, entity.char, fg=entity.color)
+                root_console.print(entity.x, entity.y,
+                                   entity.char, fg=entity.color)
 
-            root_console.print(3,1, "Power:" + str(self.power))
-            root_console.print(3,2, "Support:" + str(self.support))
-            root_console.print(3,3, "Turn Number:" + str(self.turn_number))
-            root_console.print(3,4, "Activity Points:" + str(self.activity_points))
+            root_console.print(3, 1, "Power:" + str(self.power))
+            root_console.print(3, 2, "Support:" + str(self.support))
+            root_console.print(3, 3, "Turn Number:" + str(self.turn_number))
+            root_console.print(3, 4, "Activity Points:" +
+                               str(self.activity_points))
 
         if self.full_screen_effect.in_effect == True:
             self.full_screen_effect.render(root_console)
         else:
             self.full_screen_effect.set_tiles(root_console.tiles_rgb)
-        
+
         if self.end_turn_effect.in_effect == True:
             self.end_turn_effect.render(root_console)
         else:
@@ -117,31 +120,40 @@ class Engine:
             context, discard_events=self.full_screen_effect.in_effect or self.state == GameState.GAME_OVER)
 
     def setup_game(self):
-        self.player = Player(self, 7,4)
+        self.player = Player(self, 7, 4)
         self.entities.clear()
         self.entities.append(self.player)
         self.tick_length = 2
 
-    def setup_effects(self): 
-        self.full_screen_effect = MeltWipeEffect(self, 0, 0, self.screen_width, self.screen_height, MeltWipeEffectType.RANDOM, 40)
-        self.end_turn_effect = HorizontalWipeEffect(self, 0,0, self.screen_width, self.screen_height)
+    def setup_effects(self):
+        self.full_screen_effect = MeltWipeEffect(
+            self, 0, 0, self.screen_width, self.screen_height, MeltWipeEffectType.RANDOM, 40)
+        self.end_turn_effect = HorizontalWipeEffect(
+            self, 0, 0, self.screen_width, self.screen_height)
 
     def setup_sections(self):
         self.menu_sections = {}
-        self.menu_sections["Menu"] = Menu(self, 0, 0, self.screen_width, self.screen_height)
+        self.menu_sections["Menu"] = Menu(
+            self, 0, 0, self.screen_width, self.screen_height)
 
         self.game_sections = {}
-        self.game_sections["statbar"] = Statbar(self,0, 0, self.screen_width, 5)
-        self.game_sections["map"] = Map(self,0, 5, 75, 54)
-        self.game_sections["countyinfo"] = CountyInfo(self,75, 5, 53, 54)
-        self.game_sections["actionsbar"] = ActivitiesBar(self,0, 54, self.screen_width, 10)
+        self.game_sections["statbar"] = Statbar(
+            self, 0, 0, self.screen_width, 5)
+        self.game_sections["map"] = Map(self, 0, 5, 75, 54)
+        self.game_sections["countyinfo"] = CountyInfo(self, 75, 5, 53, 54)
+        self.game_sections["actionsbar"] = ActivitiesBar(
+            self, 0, 54, self.screen_width, 10)
+        self.game_sections["confirmationDialog"] = Confirmation(
+            self, 35, 25, 60, 10)
 
         self.turn_summary_sections = {}
-        self.turn_summary_sections["turnsummary"] = TurnSummary(self,30, 9, 68, 46)
+        self.turn_summary_sections["turnsummary"] = TurnSummary(
+            self, 30, 9, 68, 46)
 
         self.completion_sections = {}
 
-        self.disabled_sections = []
+        self.disabled_sections = ["confirmationDialog"]
+        self.solo_ui_section = ""
 
     def get_active_sections(self):
         if self.state == GameState.MENU:
@@ -170,7 +182,7 @@ class Engine:
 
     def game_over(self):
         self.state = GameState.GAME_OVER
-        Timer(3,self.open_menu).start()
+        Timer(3, self.open_menu).start()
 
     def complete_game(self):
         self.state = GameState.COMPLETE
@@ -203,11 +215,12 @@ class Engine:
 
     def advance_turn(self):
         self.turn_summary_text.clear()
-        
-        #Process news article based on what activities are about to happen
+
+        # Process news article based on what activities are about to happen
 
         for county, values in self.county_manager.process_all_activites().items():
-            summary_text = county + " - DPower: " + str(values[0]) + " DSupport: " + str(values[1])
+            summary_text = county + " - DPower: " + \
+                str(values[0]) + " DSupport: " + str(values[1])
             self.turn_summary_text.append(summary_text)
             print(summary_text)
             self.power += values[0]
@@ -227,18 +240,31 @@ class Engine:
             self.county_manager.add_activity(type)
             self.activity_points -= 1
         else:
-            print("Not enough activity points to add activity " + str(type) + " to " + self.county_manager.get_selected_county().name)
+            print("Not enough activity points to add activity " + str(type) +
+                  " to " + self.county_manager.get_selected_county().name)
 
     def remove_activity(self, type):
         if self.county_manager.remove_activity(type):
             self.activity_points += 1
 
     def enact_policy(self, type):
-        if self.support >= policy_templates[type].cost:
+        if self.can_enact_policy(type):
             self.county_manager.enact_policy(type)
             self.support -= policy_templates[type].cost
         else:
-            print("Not enough support to enact " + str(type) + " in " + self.county_manager.get_selected_county().name)
-    
+            print("Not enough support to enact " + str(type) + " in " +
+                  self.county_manager.get_selected_county().name)
+
+    def can_enact_policy(self, type):
+        return self.support >= policy_templates[type].cost
+
     def is_ui_paused(self):
         return self.full_screen_effect.in_effect or self.end_turn_effect.in_effect
+
+    def open_confirmation_dialog(self, text, confirmation_action):
+        self.game_sections["confirmationDialog"].setup(
+            text, confirmation_action)
+        self.enable_section("confirmationDialog")
+
+    def close_confirmation_dialog(self):
+        self.disable_section("confirmationDialog")

@@ -124,6 +124,9 @@ class Button(UIElement):
 
     def on_mousedown(self):
         self.click_action.perform()
+    
+    def set_action(self, action):
+        self.click_action = action
 
 class ShapedButton(Button):
     def __init__(self, x: int, y: int, width: int, height: int, click_action: Action, tiles, active_tiles):
