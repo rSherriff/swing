@@ -139,8 +139,8 @@ class Engine:
         self.game_sections = {}
         self.game_sections["statbar"] = Statbar(
             self, 0, 0, self.screen_width, 5)
-        self.game_sections["map"] = Map(self, 0, 5, 75, 54)
-        self.game_sections["countyinfo"] = CountyInfo(self, 75, 5, 53, 54)
+        self.game_sections["map"] = Map(self,0, 5, 75, 49)
+        self.game_sections["countyinfo"] = CountyInfo(self,75, 5, 53, 49)
         self.game_sections["actionsbar"] = ActivitiesBar(
             self, 0, 54, self.screen_width, 10)
         self.game_sections["confirmationDialog"] = Confirmation(

@@ -55,7 +55,6 @@ class MapUI(UI):
 
         bd = [15, 13,10,5]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        print(button_tiles[0][0])
         one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Dorset'), tiles=button_tiles )
         self.add_element(one_button)
 

@@ -6,10 +6,10 @@ from verbs.policies import Policies, policy_templates
 
 class CountyInfo(Section):
     def __init__(self, engine, x: int, y: int, width: int, height: int):
+        super().__init__(engine, x, y, width, height, "county_info.xp")
 
         self.name_point = (x + 1, y + 1)
-        self.unlock_text_point = (x + 1, y+11)
-        super().__init__(engine, x, y, width, height)
+        self.unlock_text_point = (x + 1, y+11)        
 
         self.unlockedUI = CountyInfoUI(self, x, y, self.tiles["graphic"])
         self.lockedUI = LockedCountyInfoUI(self, x, y, self.tiles["graphic"])

@@ -27,7 +27,7 @@ def main() -> None:
         tileset=tileset,
         title="Swing",
         vsync=True,
-        #sdl_window_flags = tcod.context.SDL_WINDOW_BORDERLESS
+        sdl_window_flags = tcod.context.SDL_WINDOW_FULLSCREEN
     ) as root_context:
 
         root_console = tcod.Console(screen_width, screen_height, order="F")
