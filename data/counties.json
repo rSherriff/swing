@@ -48,7 +48,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "hamp_flag"
     },
     {
       "name": "Wiltshire",
@@ -58,7 +58,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "wilts_flag"
     },
     {
       "name": "Buckinghamshire",
