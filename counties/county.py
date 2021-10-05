@@ -14,7 +14,7 @@ class County():
         self.max_activity = 5
 
         self.flag_width = 20
-        self.flag_height = 10
+        self.flag_height = 12
 
         self.wage = 0
         self.tithes = 0
@@ -84,7 +84,7 @@ class County():
             return False
             
     def load_flag(self, flag_file):
-        self.flag_image = Image(20,10, flag_file)
+        self.flag_image = Image(self.flag_width,self.flag_height, flag_file)
 
     def get_flag(self):
         temp_console = Console(width=self.flag_width, height=self.flag_height, order="F")

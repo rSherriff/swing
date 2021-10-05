@@ -8,7 +8,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "kent_flag"
     },
     {
       "name": "Sussex",
@@ -18,7 +18,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "sussex_flag"
     },
     {
       "name": "Surrey",
@@ -78,7 +78,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "herts_flag"
     },
     {
       "name": "Bedfordshire",
@@ -88,7 +88,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "beds_flag"
     },
     {
       "name": "Dorset",
@@ -98,7 +98,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "dorset_flag"
     }
   ]
 }
