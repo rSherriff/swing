@@ -27,4 +27,4 @@ class Image():
                     break
         else:
             pass
-            #print("Tried to load \"" + xp_filepath + "\" but it doesn't exist!")
+            print("Tried to load \"" + xp_filepath + "\" but it doesn't exist!")

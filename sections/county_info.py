@@ -37,37 +37,37 @@ class CountyInfo(Section):
         county = self.engine.county_manager.get_selected_county()
     
         if county is not None:
-            console.print(self.name_point[0], self.name_point[1], county.name, (0,0,0))
+            console.print(self.name_point[0], self.name_point[1], county.name,  (255,255,255))
 
-            console.print(self.info_x, self.info_y,     " Avg. Wages: " + str(county.wage), (0,0,0))
-            console.print(self.info_x, self.info_y + 2, " Avg. Tithes: " + str(county.tithes), (0,0,0))
-            console.print(self.info_x, self.info_y + 4, " Avg. Rent: " + str(county.rent), (0,0,0))
-            console.print(self.info_x, self.info_y + 6, " Percentage Cereal: " + str(county.cereal_percent), (0,0,0))
+            console.print(self.info_x, self.info_y,     " Avg. Wages: " + str(county.wage), (255,255,255))
+            console.print(self.info_x, self.info_y + 2, " Avg. Tithes: " + str(county.tithes),  (255,255,255))
+            console.print(self.info_x, self.info_y + 4, " Avg. Rent: " + str(county.rent),  (255,255,255))
+            console.print(self.info_x, self.info_y + 6, " Percentage Cereal: " + str(county.cereal_percent),  (255,255,255))
 
             console.tiles_rgb[self.flag_x : self.flag_x + county.flag_width, self.flag_y: self.flag_y + county.flag_height] = county.flag_image.tiles["graphic"]
 
             if not county.unlocked:
                 self.ui = self.lockedUI
-                console.print(self.unlock_text_point[0], self.unlock_text_point[1], "Unlock County: ", (0,0,0))
-                console.print(self.unlock_text_point[0], self.unlock_text_point[1] + 1, "   " + str(county.unlock_cost) + " power points.", (0,0,0))
+                console.print(self.unlock_text_point[0], self.unlock_text_point[1], "Unlock County: ",  (255,255,255))
+                console.print(self.unlock_text_point[0], self.unlock_text_point[1] + 1, "   " + str(county.unlock_cost) + " power points.",  (255,255,255))
                 self.ui.render(console)
             elif county.unlocked:
                 self.ui = self.unlockedUI
 
-                console.print(self.activity_buttons_x, self.activity_buttons_y - 3, "Activity Points:" + str(self.engine.activity_points), (0,0,0))
+                console.print(self.activity_buttons_x, self.activity_buttons_y - 3, "Activity Points:" + str(self.engine.activity_points),  (255,255,255))
                 count = 0
                 for a in Activities:
-                    console.print(self.activity_buttons_x, self.activity_buttons_y + (count * self.activity_buttons_y_gap), activity_templates[a].name, (0,0,0))
-                    console.print(self.activity_buttons_x, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "< - - - - - - >", (0,0,0))
-                    console.print(self.activity_buttons_x + (county.get_num_activity(a) *2)+ 2, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "O", (0,0,0))
-                    console.print(self.activity_buttons_x + 15, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "x" + str(county.get_num_activity(a)), (0,0,0))
+                    console.print(self.activity_buttons_x, self.activity_buttons_y + (count * self.activity_buttons_y_gap), activity_templates[a].name,  (255,255,255))
+                    console.print(self.activity_buttons_x, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "< - - - - - - >",  (255,255,255))
+                    console.print(self.activity_buttons_x + (county.get_num_activity(a) *2)+ 2, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "O",  (255,255,255))
+                    console.print(self.activity_buttons_x + 15, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "x" + str(county.get_num_activity(a)),  (255,255,255))
                     count += 1
 
                 count = 0
                 for p in Policies:
-                    console.print(self.policy_buttons_x, self.policy_buttons_y + (count * self.policy_buttons_y_gap), policy_templates[p].name, (0,0,0))
+                    console.print(self.policy_buttons_x, self.policy_buttons_y + (count * self.policy_buttons_y_gap), policy_templates[p].name,  (255,255,255))
                     if county.is_policy_enacted(p):
-                        console.print(self.policy_buttons_x + 3, self.policy_buttons_y + (count * self.policy_buttons_y_gap) + 2, "Enacted!", (0,0,0))
+                        console.print(self.policy_buttons_x + 3, self.policy_buttons_y + (count * self.policy_buttons_y_gap) + 2, "Enacted!",  (255,255,255))
                     count += 1
 
                 self.ui.render(console)

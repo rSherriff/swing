@@ -15,7 +15,6 @@ class County():
 
         self.flag_width = 20
         self.flag_height = 10
-        self.load_flag("images/default_flag")
 
         self.wage = 0
         self.tithes = 0

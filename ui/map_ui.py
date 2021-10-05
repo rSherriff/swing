@@ -8,58 +8,170 @@ class MapUI(UI):
         super().__init__(section, x, y)
         self.elements = list()
 
-        bd = [4, 1,10,5] #Button Dimensions
+        bd = [52, 28,15,8]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Kent'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+        (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1),(13,1),(14,1),
+        (1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(7,2),(8,2),(9,2),(10,2),(11,2),(12,2),
+        (1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(13,3),
+        (1,4),(2,4),(3,4),(4,4),(5,4),(6,4),(7,4),(8,4),(9,4),(10,4),(11,4),(12,4),(13,4),
+        (1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),(8,5),(9,5),(10,5),(11,5),(12,5),
+                                      (6,6),(7,6),(8,6),(9,6),(10,6),(11,6),(12,6),
+                                                        (9,7),(10,7)
+        )
+        kent_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Kent'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(kent_button)
 
-        bd = [15, 1,10,5]
+        bd = [37, 33,27,8]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Sussex'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                    (3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1),
+              (2,2),(3,2),(4,2),(5,2),(6,2),(7,2),(8,2),(9,2),(10,2),(11,2),(12,2),(13,2),(14,2),(15,2),(16,2),(17,2),(18,2),(19,2),
+        (1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(13,3),(14,3),(15,3),(16,3),(17,3),(18,3),(19,3),(20,3),(21,3),(22,3),
+        (1,4),(2,4),(3,4),(4,4),(5,4),(6,4),(7,4),(8,4),(9,4),(10,4),(11,4),(12,4),(13,4),(14,4),(15,4),(16,4),(17,4),(18,4),(19,4),(20,4),
+        (1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),                                               (15,5),(16,5),(17,5),(18,5),(19,5),
+        (1,6),(2,6),(3,6),(4,6),(5,6),                                                                         (17,6),(18,6),
+              (2,7),(3,7)
+        )
+        sussex_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Sussex'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(sussex_button)
 
-        bd = [26, 1,10,5]
+        bd = [40, 26,12,8]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Surrey'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                    (3,1),(4,1),(5,1),(6,1),(7,1),(8,1),
+        (1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(7,2),(8,2),(9,2),
+        (1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3),(11,3),
+        (1,4),(2,4),(3,4),(4,4),(5,4),(6,4),(7,4),(8,4),(9,4),(10,4),(11,4),
+        (1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),(8,5),(9,5),(10,5),(11,5),
+        (1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6),(8,6),(9,6),(10,6),(11,6),
+                                                              (10,7),(11,7)
+        )
+        surrey_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Surrey'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(surrey_button)
 
-        bd = [37, 1,10,5]
+        bd = [33, 19,16,11]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Berkshire'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+              (2,1),(3,1),(4,1),(5,1),
+              (2,2),(3,2),(4,2),(5,2),(6,2),                                (12,2),(13,2),
+              (2,3),(3,3),(4,3),(5,3),(6,3),                         (11,3),(12,3),(13,3),(14,3),(15,3),
+              (2,4),(3,4),(4,4),(5,4),(6,4),                         (11,4),(12,4),(13,4),(14,4),
+        (1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),(8,5),             (11,5),(12,5),(13,5),(14,5),
+        (1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6),(8,6),(9,6),(10,6),(11,6),(12,6),(13,6),(14,6),
+                                                  (8,7)
+        )
+        berks_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Berkshire'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(berks_button)
 
-        bd = [4, 7,10,5]
+        bd = [24, 26,16,14]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Hampshire'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                                            (7,1),(8,1),(9,1),(10,1),(11,1),(12,1),(13,1),(14,1),(15,1),
+                                      (6,2),(7,2),(8,2),(9,2),(10,2),(11,2),(12,2),(13,2),(14,2),(15,2),
+                                      (6,3),(7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(13,3),(14,3),(15,3),
+                                      (6,4),(7,4),(8,4),(9,4),(10,4),(11,4),(12,4),(13,4),(14,4),(15,4),
+                                      (6,5),(7,5),(8,5),(9,5),(10,5),(11,5),(12,5),(13,5),(14,5),(15,5),
+                                      (6,6),(7,6),(8,6),(9,6),(10,6),(11,6),(12,6),(13,6),
+                                (5,7),(6,7),(7,7),(8,7),(9,7),(10,7),(11,7),(12,7),(13,7),
+        (1,8),(2,8),            (5,8),(6,8),(7,8),(8,8),(9,8),(10,8),(11,8),(12,8),(13,8),
+        (1,9),(2,9),(3,9),(4,9),(5,9),(6,9),(7,9),(8,9),(9,9),(10,9),(11,9),(12,9),
+        (1,10),(2,10),(3,10),(4,10),(5,10),(6,10),(7,10),(8,10),(9,10),(10,10),(11,10),(12,10),
+        (1,11),(2,11),(3,11),(4,11),(5,11),              (8,11),(9,11),(10,11),(11,11),(12,11),
+        (1,12),(2,12),(3,12),(4,12),(5,12),(6,12),              (9,12),(10,12),(11,12),(12,12),
+        (1,13),(2,13),(3,13),(4,13),(5,13),(6,13),
+        )
+        hamps_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Hampshire'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(hamps_button)
 
-        bd = [15, 7,10,5]
+        bd = [20, 18,16,15]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Wiltshire'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                                (5,1),(6,1),(7,1),
+                          (4,2),(5,2),(6,2),(7,2),(8,2),(9,2),(10,2),(11,2),(12,2),
+                    (3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(13,3),
+                    (3,4),(4,4),(5,4),(6,4),(7,4),(8,4),(9,4),(10,4),(11,4),(12,4),(13,4),
+              (2,5),(3,5),(4,5),(5,5),(6,5),(7,5),(8,5),(9,5),(10,5),(11,5),(12,5),
+              (2,6),(3,6),(4,6),(5,6),(6,6),(7,6),(8,6),(9,6),(10,6),(11,6),(12,6),
+              (2,7),(3,7),(4,7),(5,7),(6,7),(7,7),(8,7),(9,7),(10,7),(11,7),
+              (2,8),(3,8),(4,8),(5,8),(6,8),(7,8),(8,8),(9,8),
+                    (3,9),(4,9),(5,9),(6,9),(7,9),(8,9),
+                    (3,10),(4,10),(5,10),(6,10),(7,10),(8,10),
+             (2,11),(3,11),(4,11),(5,11),(6,11),(7,11),(8,11),
+             (2,12),(3,12),(4,12),(5,12),(6,12),(7,12),(8,12),
+      (1,13),(2,13),(3,13),(4,13),(5,13),(6,13),(7,13),(8,13),
+      (1,14),(2,14),(3,14),              (6,14),(7,14),
+        )
+        wilts_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Wiltshire'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(wilts_button)
 
-        bd = [26, 7,10,5]
+        bd = [41, 7,9,13]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Buckinghamshire'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+              (2,1),(3,1),(4,1),(5,1),      (7,1),(8,1),
+                    (3,2),(4,2),(5,2),      (7,2),(8,2),
+                    (3,3),(4,3),(5,3),(6,3),(7,3),(8,3),
+                    (3,4),(4,4),(5,4),(6,4),(7,4),
+        (1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),
+                    (3,6),(4,6),(5,6),(6,6),
+                          (4,7),(5,7),(6,7),
+                          (4,8),(5,8),(6,8),
+                                (5,9),(6,9),
+                                (5,10),(6,10),
+                                (5,11),(6,11),(7,11),
+                                (5,12),(6,12),(7,12)
+        )
+        bucks_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Buckinghamshire'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(bucks_button)
 
-        bd = [37, 7,10,5]
+        bd = [49, 13,10,9]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Hertfordshire'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                                            (7,1),(8,1),
+                          (4,2),(5,2),(6,2),(7,2),(8,2),
+                    (3,3),(4,3),(5,3),(6,3),(7,3),(8,3),
+              (2,4),(3,4),(4,4),(5,4),(6,4),(7,4),(8,4),
+        (1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(7,5),(8,5),(9,5),
+        (1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(7,6),
+              (2,7),(3,7),(4,7),(5,7),(6,7),
+        (1,8),(2,8),(3,8),(4,8),(5,8),(6,8),
+        )
+        bucks_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Hertfordshire'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(bucks_button)
 
-        bd = [4, 13,10,5]
+        bd = [48, 6,8,12]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Bedfordshire'), tiles=button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                          (4,1),(5,1),(6,1),
+                    (3,2),(4,2),(5,2),(6,2),
+                    (3,3),(4,3),(5,3),(6,3),
+                    (3,4),(4,4),(5,4),(6,4),
+                    (3,5),(4,5),(5,5),(6,5),
+              (2,6),(3,6),(4,6),(5,6),(6,6),(7,6),
+        (1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7),
+        (1,8),(2,8),(3,8),
+              (2,9),
+        (1,10),
+        (1,11),
+        )
+        beds_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Bedfordshire'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(beds_button)
 
-        bd = [15, 13,10,5]
+        
+        bd = [10, 33,14,10]
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Dorset'), tiles=button_tiles )
-        self.add_element(one_button)
-
-        bd = [26, 13,10,5]
-        button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        shaped_button_tiles = ((1,1),(2,1))
-        one_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Dorset'), tiles=button_tiles, active_tiles=shaped_button_tiles )
-        self.add_element(one_button)
+        shaped_button_tiles = (
+                                                (8,1),(9,1),(10,1),(11,1),(12,1),(13,1),
+                                          (7,2),(8,2),(9,2),(10,2),(11,2),(12,2),(13,2),
+                                          (7,3),(8,3),(9,3),(10,3),(11,3),(12,3),(13,3),
+                                    (6,4),(7,4),(8,4),(9,4),(10,4),(11,4),(12,4),(13,4),
+                  (3,5),(4,5),(5,5),(6,5),(7,5),(8,5),(9,5),(10,5),(11,5),(12,5),(13,5),
+            (2,6),(3,6),(4,6),(5,6),(6,6),(7,6),(8,6),(9,6),(10,6),(11,6),(12,6),(13,6),
+      (1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(7,7),(8,7),(9,7),(10,7),(11,7),(12,7),(13,7),
+                        (4,8),            (7,8),(8,8),(9,8),(10,8),(11,8),(12,8),(13,8),
+                        (4,9)
+        )
+        beds_button = ShapedButton(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=SelectCounty(self.section.engine, 'Dorset'), tiles=button_tiles, active_tiles=shaped_button_tiles )
+        self.add_element(beds_button)
+        
+        

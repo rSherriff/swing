@@ -55,6 +55,8 @@ class UI:
                 if element.mouseover == True:
                     element.on_mouseleave()
                 element.mouseover = False
+        
+        self.sort_elements()
 
     def add_element(self, element):
         element.x = element.x + self.x
@@ -64,6 +66,7 @@ class UI:
 
     def sort_elements(self):
         self.elements.sort(key = lambda element: element.render_order)
+        self.elements.sort(key = lambda element: element.mouseover)
 
 
 class UIElement:

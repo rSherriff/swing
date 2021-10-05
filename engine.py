@@ -82,6 +82,7 @@ class Engine:
                 root_console.print(entity.x, entity.y,
                                    entity.char, fg=entity.color)
 
+            root_console.print(3,0, str(self.mouse_location))
             root_console.print(3, 1, "Power:" + str(self.power))
             root_console.print(3, 2, "Support:" + str(self.support))
             root_console.print(3, 3, "Turn Number:" + str(self.turn_number))

@@ -19,6 +19,7 @@ class CountyManager():
                 county.wage = c["wage"]
                 county.rent = c["rent"]
                 county.tithes = c["tithes"]
+                county.load_flag("images/" + c["flag"] + ".xp")
 
                 self.counties[county.name] = county
 
