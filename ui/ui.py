@@ -119,9 +119,6 @@ class Button(UIElement):
                         self.tiles[w,h][1] = self.normal_bg 
                         
                 temp_console.tiles_rgb[w,h] = self.tiles[w,h]
-                
-                #Temp fill
-                temp_console.tiles_rgb[w,h][2] = self.normal_bg 
 
         temp_console.blit(console, self.x, self.y)
 

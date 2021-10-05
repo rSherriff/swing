@@ -9,7 +9,7 @@ class CountyInfo(Section):
         super().__init__(engine, x, y, width, height, "county_info.xp")
 
         self.name_point = (x + 1, y + 1)
-        self.unlock_text_point = (x + 1, y+11)        
+        self.unlock_text_point = (x + 2, y+11)        
 
         self.unlockedUI = CountyInfoUI(self, x, y, self.tiles["graphic"])
         self.lockedUI = LockedCountyInfoUI(self, x, y, self.tiles["graphic"])
@@ -18,7 +18,7 @@ class CountyInfo(Section):
         self.info_x = self.x + 1
         self.info_y = self.y + 3
 
-        self.activity_buttons_x = self.x + 1
+        self.activity_buttons_x = self.x + 2
         self.activity_buttons_y = self.y + 20
         self.activity_buttons_y_gap = 4
 

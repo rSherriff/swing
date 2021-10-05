@@ -56,7 +56,7 @@ class MainGameEventHandler(EventHandler):
         for entity in self.engine.entities:
             entity.keydown(key)
 
-        for _, section in self.engine.get_active_sections():
+        for _, section in self.engine.get_active_ui_sections():
             if section.ui is not None:
                 section.ui.keydown(event)
 
@@ -67,7 +67,7 @@ class MainGameEventHandler(EventHandler):
 
         self.engine.mouse_location = self.current_context.pixel_to_tile(event.pixel.x, event.pixel.y)
 
-        for _, section in self.engine.get_active_sections():
+        for _, section in self.engine.get_active_ui_sections():
             if section.ui is not None:
                 section.ui.mousemove(self.engine.mouse_location[0], self.engine.mouse_location[1])
 
@@ -80,7 +80,7 @@ class MainGameEventHandler(EventHandler):
 
         self.mouse_down_location = self.engine.mouse_location
 
-        for _, section in self.engine.get_active_sections():
+        for _, section in self.engine.get_active_ui_sections():
             if section.ui is not None:
                 section.ui.mousedown(self.engine.mouse_location[0], self.engine.mouse_location[1])
 

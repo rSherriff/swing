@@ -22,7 +22,7 @@ class CountyInfoUI(UI):
         super().__init__(section, x, y)
         self.elements = list()
 
-        startx = 19
+        startx = 20
         starty = 21
         ygap = 4
         count = 0
@@ -47,7 +47,7 @@ class CountyInfoUI(UI):
 
             count += 1
 
-        startx = 27
+        startx = 28
         starty = 22
         ygap = 5
         count = 0

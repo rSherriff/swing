@@ -82,13 +82,6 @@ class Engine:
                 root_console.print(entity.x, entity.y,
                                    entity.char, fg=entity.color)
 
-            root_console.print(3,0, str(self.mouse_location))
-            root_console.print(3, 1, "Power:" + str(self.power))
-            root_console.print(3, 2, "Support:" + str(self.support))
-            root_console.print(3, 3, "Turn Number:" + str(self.turn_number))
-            root_console.print(3, 4, "Activity Points:" +
-                               str(self.activity_points))
-
         if self.full_screen_effect.in_effect == True:
             self.full_screen_effect.render(root_console)
         else:
@@ -98,6 +91,14 @@ class Engine:
             self.end_turn_effect.render(root_console)
         else:
             self.end_turn_effect.set_tiles(root_console.tiles_rgb)
+
+        #TEMP
+        root_console.print(18, 1, str(self.mouse_location))
+        root_console.print(3, 1, "Power:" + str(self.power))
+        root_console.print(3, 2, "Support:" + str(self.support))
+        root_console.print(3, 3, "Turn Number:" + str(self.turn_number))
+        root_console.print(18, 2, "Activity Points:" +
+                               str(self.activity_points))
 
     def update(self):
         """ Engine update tick """
@@ -166,6 +167,18 @@ class Engine:
         elif self.state == GameState.COMPLETE:
             return self.completion_sections.items()
 
+    def get_active_ui_sections(self):
+        if self.state == GameState.MENU:
+            return self.menu_sections.items()
+        elif self.state == GameState.IN_GAME:
+            if "confirmationDialog" not in self.disabled_sections:
+                return {"confirmationDialog": self.game_sections["confirmationDialog"]}.items()
+            return self.game_sections.items()
+        elif self.state == GameState.TURN_SUMMARY:
+            return self.turn_summary_sections.items()
+        elif self.state == GameState.COMPLETE:
+            return self.completion_sections.items()
+
     def enable_section(self, section):
         self.disabled_sections.remove(section)
 
@@ -218,14 +231,19 @@ class Engine:
         self.turn_summary_text.clear()
 
         # Process news article based on what activities are about to happen
-
+        total_power, total_support = 0 , 0
         for county, values in self.county_manager.process_all_activites().items():
-            summary_text = county + " - DPower: " + \
-                str(values[0]) + " DSupport: " + str(values[1])
-            self.turn_summary_text.append(summary_text)
-            print(summary_text)
+            county_summary = [county,values[0],values[1]]
+            self.turn_summary_text.append(county_summary)
+            print(county_summary)
             self.power += values[0]
+            total_power += values[0]
+
             self.support += values[1]
+            total_support += values[1]
+
+        self.turn_summary_text.append(["Total", total_power, total_support])
+        self.turn_summary_text.append(["New Values", self.power, self.support])
 
         self.turn_number += 1
         self.activity_points = 5
