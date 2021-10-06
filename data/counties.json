@@ -38,7 +38,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "berks_flag"
     },
     {
       "name": "Hampshire",
@@ -68,7 +68,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
-      "flag": "default_flag"
+      "flag": "bucks_flag"
     },
     {
       "name": "Hertfordshire",
