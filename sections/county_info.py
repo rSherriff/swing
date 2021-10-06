@@ -1,8 +1,10 @@
-from verbs.policies import Policies
-from sections.section import Section
-from ui.county_info_ui import LockedCountyInfoUI, CountyInfoUI
+
+from ui.county_info_ui import CountyInfoUI, LockedCountyInfoUI
 from verbs.activities import Activities, activity_templates
 from verbs.policies import Policies, policy_templates
+
+from sections.section import Section
+
 
 class CountyInfo(Section):
     def __init__(self, engine, x: int, y: int, width: int, height: int):

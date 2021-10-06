@@ -142,6 +142,7 @@ class ShapedButton(Button):
 
         if self.mouseover:
             for tile in self.active_tiles:
+                temp_console.tiles_rgb[tile[0],tile[1]][0] = ord(' ')
                 temp_console.tiles_rgb[tile[0],tile[1]][2] = (0,255,0)
 
         temp_console.blit(console, self.x, self.y)
