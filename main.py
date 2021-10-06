@@ -14,8 +14,8 @@ def main() -> None:
     screen_width = 128
     screen_height = 64
 
-    terminal_height = screen_height  * 2
-    terminal_width = screen_width * 2
+    terminal_height = screen_height 
+    terminal_width = screen_width
 
     tileset = tcod.tileset.load_tilesheet(
         get_app_path() + "/polyducks_12x12.png", 16, 16, tcod.tileset.CHARMAP_CP437
@@ -27,7 +27,7 @@ def main() -> None:
         tileset=tileset,
         title="Swing",
         vsync=True,
-        sdl_window_flags = tcod.context.SDL_WINDOW_FULLSCREEN
+        sdl_window_flags = tcod.context.SDL_WINDOW_RESIZABLE
     ) as root_context:
 
         root_console = tcod.Console(screen_width, screen_height, order="F")
