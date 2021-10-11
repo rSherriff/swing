@@ -1,6 +1,6 @@
 from ui.ui import UI, Button, Tooltip
 
-from actions.actions import AddActivity, RemoveActivity, UnlockCounty, EnactPolicyButton,OpenPolicyConfirmationDialog
+from actions.actions import AddActivity, RemoveActivity, UnlockCounty, EnactPolicy,OpenPolicyConfirmationDialog, OpenCountyConfirmationDialog
 from verbs.activities import Activities, activity_templates
 from verbs.policies import Policies, policy_templates
 
@@ -10,10 +10,10 @@ class LockedCountyInfoUI(UI):
         super().__init__(section, x, y)
         self.elements = list()
 
-        bd = [1, 14, 10, 5]  # Button Dimensions
+        bd = [4, 20, 16, 7]  # Button Dimensions
         button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
-        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=UnlockCounty(
-            self.section.engine), tiles=button_tiles)
+        one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=OpenCountyConfirmationDialog(
+                self.section.engine, "Unlock this county?", UnlockCounty( self.section.engine)), tiles=button_tiles)
         self.add_element(one_button)
 
 
@@ -55,7 +55,7 @@ class CountyInfoUI(UI):
             bd = [startx, starty + (count * ygap), 3, 3]  # Button Dimensions
             button_tiles = tiles[bd[0]:bd[0] + bd[2], bd[1]:bd[1] + bd[3]]
             one_button = Button(x=bd[0], y=bd[1], width=bd[2], height=bd[3], click_action=OpenPolicyConfirmationDialog(
-                self.section.engine, "Enact this policy?", type, EnactPolicyButton(self.section.engine, type)), tiles=button_tiles)
+                self.section.engine, "Enact this policy?", type, EnactPolicy(self.section.engine, type)), tiles=button_tiles)
             self.add_element(one_button)
 
             td = [startx, starty + (count * ygap)]

@@ -240,7 +240,6 @@ class Engine:
         for county, values in self.county_manager.process_all_activites().items():
             county_summary = [county,values[0],values[1]]
             self.turn_summary_text.append(county_summary)
-            print(county_summary)
             self.power += values[0]
             total_power += values[0]
 
@@ -281,6 +280,9 @@ class Engine:
 
     def can_enact_policy(self, type):
         return self.support >= policy_templates[type].cost
+
+    def can_unlock_selected_county(self):
+        return self.power >= self.county_manager.get_selected_county().unlock_cost
 
     def is_ui_paused(self):
         return self.full_screen_effect.in_effect or self.end_turn_effect.in_effect

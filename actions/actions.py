@@ -94,8 +94,10 @@ class UnlockCounty(Action):
         super().__init__(engine)
 
     def perform(self):
-        self.engine.unlock_selected_county()
-
+        if self.engine.can_unlock_selected_county():
+            self.engine.unlock_selected_county()
+        else:
+            return self.engine.open_notification_dialog("You do not have enough power to unlock this county.")
 
 class AdvanceTurn(Action):
     def __init__(self, engine):
@@ -171,6 +173,17 @@ class OpenPolicyConfirmationDialog(Action):
         else:
             return self.engine.open_notification_dialog("You do not have enough support to enact this policy.")
 
+class OpenCountyConfirmationDialog(Action):
+    def __init__(self, engine, text, confirmation_action) -> None:
+        super().__init__(engine)
+        self.text = text
+        self.confirmation_action = confirmation_action
+
+    def perform(self) -> None:
+        if self.engine.can_unlock_selected_county():
+            return self.engine.open_confirmation_dialog(self.text, self.confirmation_action)
+        else:
+            return self.engine.open_notification_dialog("You do not have enough power to unlock this county.")
 
 class CloseConfirmationDialog(Action):
     def __init__(self, engine) -> None:
@@ -193,14 +206,3 @@ class CloseNotificationDialog(Action):
 
     def perform(self) -> None:
         return self.engine.close_notification_dialog()
-
-
-
-class EnactPolicyButton(Action):
-    def __init__(self, engine, type) -> None:
-        super().__init__(engine)
-        self.type = type
-
-    def perform(self) -> None:
-        if self.engine.can_enact_policy(self.type):
-            return OpenConfirmationDialog(self.engine, "Enact " + policy_templates[self.type].name + "?", EnactPolicy(self.engine, self.type)).perform()
