@@ -18,12 +18,21 @@ class Section:
         self.tiles =  np.full((self.width, self.height), fill_value=tile, order="F")
         self.ui = None
 
-        if xp_filepath:
-            xp_file = gzip.open("images/" + xp_filepath)
+        xp_data = self.load_xp_data(xp_filepath)
+        self.load_tiles(xp_filepath, xp_data)
+
+        self.invisible = False
+
+    def load_xp_data(self, filepath):
+        if filepath:
+            xp_file = gzip.open("images/" + filepath)
             raw_data = xp_file.read()
             xp_file.close()
+            return xp_loader.load_xp_string(raw_data)
 
-            xp_data = xp_loader.load_xp_string(raw_data)
+    def load_tiles(self, data_name, xp_data):
+        if xp_data is not None:
+            self.loaded_tiles = data_name
             for h in range(0, self.height):
                 if h < xp_data['height']:
                     for w in range(0, self.width):
@@ -34,7 +43,6 @@ class Section:
                 else:
                     break
 
-        self.invisible = False
 
     def render(self, console):
         if len(self.tiles) > 0:
