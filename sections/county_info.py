@@ -10,7 +10,7 @@ class CountyInfo(Section):
     def __init__(self, engine, x: int, y: int, width: int, height: int):
         super().__init__(engine, x, y, width, height, "county_info.xp")
 
-        self.name_point = (x + 1, y + 1)
+        self.name_point = (x + 2, y + 2)
         self.unlock_text_point = (x + 2, y+11)        
 
         self.unlockedUI = CountyInfoUI(self, x, y, self.tiles["graphic"])
@@ -18,17 +18,17 @@ class CountyInfo(Section):
         self.ui = self.lockedUI
 
         self.info_x = self.x + 1
-        self.info_y = self.y + 3
+        self.info_y = self.y + 5
 
         self.activity_buttons_x = self.x + 2
-        self.activity_buttons_y = self.y + 20
+        self.activity_buttons_y = self.y + 19
         self.activity_buttons_y_gap = 4
 
-        self.policy_buttons_x = self.x + 27
+        self.policy_buttons_x = self.x + 28
         self.policy_buttons_y = self.y + 20
         self.policy_buttons_y_gap = 5
 
-        self.flag_x = self.x + 25
+        self.flag_x = self.x + 26
         self.flag_y = self.y + 3
 
     def render(self, console):
@@ -56,11 +56,10 @@ class CountyInfo(Section):
             elif county.unlocked:
                 self.ui = self.unlockedUI
 
-                console.print(self.activity_buttons_x, self.activity_buttons_y - 3, "Activity Points:" + str(self.engine.activity_points),  (255,255,255))
+                console.print(self.activity_buttons_x, self.activity_buttons_y - 3, "Activity Points: " + str(self.engine.activity_points),  (255,255,255))
                 count = 0
                 for a in Activities:
                     console.print(self.activity_buttons_x, self.activity_buttons_y + (count * self.activity_buttons_y_gap), activity_templates[a].name,  (255,255,255))
-                    console.print(self.activity_buttons_x, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "< - - - - - - >",  (255,255,255))
                     console.print(self.activity_buttons_x + (county.get_num_activity(a) *2)+ 2, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "O",  (255,255,255))
                     console.print(self.activity_buttons_x + 15, self.activity_buttons_y + (count * self.activity_buttons_y_gap) + 2, "x" + str(county.get_num_activity(a)),  (255,255,255))
                     count += 1
