@@ -123,7 +123,8 @@ class Button(UIElement):
         temp_console.blit(console, self.x, self.y)
 
     def on_mousedown(self):
-        self.click_action.perform()
+        if self.click_action is not None:
+            self.click_action.perform()
     
     def set_action(self, action):
         self.click_action = action

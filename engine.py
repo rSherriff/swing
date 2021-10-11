@@ -25,6 +25,7 @@ from sections.statbar import Statbar
 from sections.county_info import CountyInfo
 from sections.turn_summary import TurnSummary
 from sections.confirmation import Confirmation
+from sections.notification import Notification
 from utils.delta_time import DeltaTime
 from verbs.activities import Activities
 from verbs.policies import policy_templates
@@ -147,6 +148,8 @@ class Engine:
             self, 0, 54, self.screen_width, 10)
         self.game_sections["confirmationDialog"] = Confirmation(
             self, 35, 25, 60, 10)
+        self.game_sections["notificationDialog"] = Notification(
+            self, 35, 25, 60, 10)
 
         self.turn_summary_sections = {}
         self.turn_summary_sections["turnsummary"] = TurnSummary(
@@ -154,7 +157,7 @@ class Engine:
 
         self.completion_sections = {}
 
-        self.disabled_sections = ["confirmationDialog"]
+        self.disabled_sections = ["confirmationDialog", "notificationDialog"]
         self.solo_ui_section = ""
 
     def get_active_sections(self):
@@ -173,6 +176,8 @@ class Engine:
         elif self.state == GameState.IN_GAME:
             if "confirmationDialog" not in self.disabled_sections:
                 return {"confirmationDialog": self.game_sections["confirmationDialog"]}.items()
+            if "notificationDialog" not in self.disabled_sections:
+                return {"notificationDialog": self.game_sections["notificationDialog"]}.items()
             return self.game_sections.items()
         elif self.state == GameState.TURN_SUMMARY:
             return self.turn_summary_sections.items()
@@ -287,3 +292,10 @@ class Engine:
 
     def close_confirmation_dialog(self):
         self.disable_section("confirmationDialog")
+
+    def open_notification_dialog(self, text):
+        self.game_sections["notificationDialog"].setup(text)
+        self.enable_section("notificationDialog")
+
+    def close_notification_dialog(self):
+        self.disable_section("notificationDialog")

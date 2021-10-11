@@ -158,6 +158,19 @@ class OpenConfirmationDialog(Action):
     def perform(self) -> None:
         return self.engine.open_confirmation_dialog(self.text, self.confirmation_action)
 
+class OpenPolicyConfirmationDialog(Action):
+    def __init__(self, engine, text, type, confirmation_action) -> None:
+        super().__init__(engine)
+        self.text = text
+        self.type = type
+        self.confirmation_action = confirmation_action
+
+    def perform(self) -> None:
+        if self.engine.can_enact_policy(self.type):
+            return self.engine.open_confirmation_dialog(self.text, self.confirmation_action)
+        else:
+            return self.engine.open_notification_dialog("You do not have enough support to enact this policy.")
+
 
 class CloseConfirmationDialog(Action):
     def __init__(self, engine) -> None:
@@ -165,6 +178,22 @@ class CloseConfirmationDialog(Action):
 
     def perform(self) -> None:
         return self.engine.close_confirmation_dialog()
+
+class OpenNotificationDialog(Action):
+    def __init__(self, engine, text) -> None:
+        super().__init__(engine)
+        self.text = text
+
+    def perform(self) -> None:
+        return self.engine.open_notification_dialog(self.text)
+
+class CloseNotificationDialog(Action):
+    def __init__(self, engine) -> None:
+        super().__init__(engine)
+
+    def perform(self) -> None:
+        return self.engine.close_notification_dialog()
+
 
 
 class EnactPolicyButton(Action):
