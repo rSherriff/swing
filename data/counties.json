@@ -12,7 +12,7 @@
     },
     {
       "name": "Sussex",
-      "unlock_cost": 0,
+      "unlock_cost": 150,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -22,7 +22,7 @@
     },
     {
       "name": "Surrey",
-      "unlock_cost": 0,
+      "unlock_cost": 200,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -32,7 +32,7 @@
     },
     {
       "name": "Berkshire",
-      "unlock_cost": 0,
+      "unlock_cost": 250,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -42,7 +42,7 @@
     },
     {
       "name": "Hampshire",
-      "unlock_cost": 0,
+      "unlock_cost": 300,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -52,7 +52,7 @@
     },
     {
       "name": "Wiltshire",
-      "unlock_cost": 0,
+      "unlock_cost": 400,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -62,7 +62,7 @@
     },
     {
       "name": "Buckinghamshire",
-      "unlock_cost": 0,
+      "unlock_cost": 500,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -72,7 +72,7 @@
     },
     {
       "name": "Hertfordshire",
-      "unlock_cost": 0,
+      "unlock_cost": 500,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -82,7 +82,7 @@
     },
     {
       "name": "Bedfordshire",
-      "unlock_cost": 0,
+      "unlock_cost": 500,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
@@ -92,7 +92,7 @@
     },
     {
       "name": "Dorset",
-      "unlock_cost": 0,
+      "unlock_cost": 500,
       "unlocked": false,
       "wage": 0,
       "tithes": 0,
