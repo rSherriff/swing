@@ -12,6 +12,8 @@ class County():
         self.unlocked = False
         self.activities = {}
         self.max_activity = 5
+        self.vigilantness = 0
+        self.threat_threshold = 1000
 
         self.flag_width = 20
         self.flag_height = 12
@@ -20,6 +22,7 @@ class County():
         self.tithes = 0
         self.rent = 0
         self.cereal_percent = 0
+        self.threat = 0
 
         self.policies = {}
         for p in Policies:
@@ -57,21 +60,53 @@ class County():
                 if a is Activities.BREAKING:
                     pow += activity_templates[Activities.BREAKING].power
                     sup += activity_templates[Activities.BREAKING].support
+                    self.threat += activity_templates[Activities.BREAKING].threat_generated
                 elif a is Activities.ARSON:
                     pow += activity_templates[Activities.ARSON].power
                     sup += activity_templates[Activities.ARSON].support
+                    self.threat += activity_templates[Activities.ARSON].threat_generated
                 elif a is Activities.LETTER:
                     pow += activity_templates[Activities.LETTER].power
                     sup += activity_templates[Activities.LETTER].support
+                    self.threat += activity_templates[Activities.LETTER].threat_generated
                 elif a is Activities.MEETING:
                     pow += activity_templates[Activities.MEETING].power
                     sup += activity_templates[Activities.MEETING].support
+                    self.threat += activity_templates[Activities.MEETING].threat_generated
                 elif a is Activities.ROBBERY:
                     pow += activity_templates[Activities.ROBBERY].power
                     sup += activity_templates[Activities.ROBBERY].support
+                    self.threat += activity_templates[Activities.ROBBERY].threat_generated
+
+        if self.is_threat_threshold_reached():
+            print("County threat threshold reached!")
+            self.unlocked = False
 
         self.activities.clear()
         return pow, sup
+
+
+    def get_threat_generated(self):
+        threat = 0
+        for a, t in self.activities.items():
+            for i in range(t):
+                if a is Activities.BREAKING:
+                    threat += activity_templates[Activities.BREAKING].threat_generated
+                elif a is Activities.ARSON:
+                    threat += activity_templates[Activities.ARSON].threat_generated
+                elif a is Activities.LETTER:
+                    threat += activity_templates[Activities.LETTER].threat_generated
+                elif a is Activities.MEETING:
+                    threat += activity_templates[Activities.MEETING].threat_generated
+                elif a is Activities.ROBBERY:
+                    threat += activity_templates[Activities.ROBBERY].threat_generated
+
+        return threat
+
+    def is_threat_threshold_reached(self):
+        return self.threat >= self.threat_threshold
+            
+
 
     def enact_policy(self, type):
         self.policies[type] = True

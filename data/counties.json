@@ -2,12 +2,13 @@
   "counties": [
     {
       "name": "Kent",
-      "unlock_cost": 0,
+      "unlock_cost": 100,
       "unlocked": true,
       "wage": 0,
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "kent_flag"
     },
     {
@@ -18,6 +19,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "sussex_flag"
     },
     {
@@ -28,6 +30,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "surrey_flag"
     },
     {
@@ -38,6 +41,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "berks_flag"
     },
     {
@@ -48,6 +52,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "hamp_flag"
     },
     {
@@ -58,6 +63,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "wilts_flag"
     },
     {
@@ -68,6 +74,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "bucks_flag"
     },
     {
@@ -78,6 +85,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "herts_flag"
     },
     {
@@ -88,6 +96,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "beds_flag"
     },
     {
@@ -98,6 +107,7 @@
       "tithes": 0,
       "rent": 0,
       "cereal_percent": 0,
+      "vigilantness": 0,
       "flag": "dorset_flag"
     }
   ]

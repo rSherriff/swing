@@ -34,6 +34,10 @@ class CountyInfo(Section):
         self.flag_x = self.x + 26
         self.flag_y = self.y + 3
 
+        self.threat_bar_x = self.x + 3
+        self.threat_bar_y = self.y + 44
+        self.threat_bar_length = 47
+
     def render(self, console):
         county = self.engine.county_manager.get_selected_county()
 
@@ -81,5 +85,23 @@ class CountyInfo(Section):
                     else:  
                         console.print(self.policy_buttons_x + 1, self.policy_buttons_y + (count * self.policy_buttons_y_gap) + 2, "Support: " +str(policy_templates[p].cost),  (255,255,255))
                     count += 1
+
+                if county.is_threat_threshold_reached():
+                    for i in range(self.threat_bar_length):
+                        console.tiles_rgb[self.threat_bar_x + i, self.threat_bar_y][1] = (0 + (i * 5),0, 255 - (i * 5))
+                        console.tiles_rgb[self.threat_bar_x + i, self.threat_bar_y + 1][1] = (0 + (i * 5),0, 255- (i * 5))
+                else:
+                    normalized_threat = int(county.threat / (county.threat_threshold / self.threat_bar_length ))
+                    for i in range(normalized_threat):
+                        console.tiles_rgb[self.threat_bar_x + i, self.threat_bar_y][1] = (0 + (i * 5),0, 255 - (i * 5))
+                        console.tiles_rgb[self.threat_bar_x + i, self.threat_bar_y + 1][1] = (0 + (i * 5),0, 255- (i * 5))
+                    for i in range(self.threat_bar_length - normalized_threat):
+                        console.tiles_rgb[self.threat_bar_x + normalized_threat + i, self.threat_bar_y][1] = (0,0,0)
+                        console.tiles_rgb[self.threat_bar_x + normalized_threat + i, self.threat_bar_y + 1][1] = (0,0,0)
+
+                    normalized_potential_threat = int(county.get_threat_generated() / (county.threat_threshold / self.threat_bar_length))
+                    for i in range(normalized_potential_threat):
+                        console.tiles_rgb[self.threat_bar_x + normalized_threat + i, self.threat_bar_y][1] = (0,255,0)
+                        console.tiles_rgb[self.threat_bar_x + normalized_threat + i, self.threat_bar_y + 1][1] = (0,255,0)
 
                 self.ui.render(console)
