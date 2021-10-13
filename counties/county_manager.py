@@ -47,6 +47,7 @@ class CountyManager():
 
     def unlock_selected_county(self):
         self.get_selected_county().unlocked = True
+        self.get_selected_county().threat = 0
 
     def enact_policy(self, type):
         self.get_selected_county().enact_policy(type)

@@ -29,6 +29,7 @@ from sections.notification import Notification
 from utils.delta_time import DeltaTime
 from verbs.activities import Activities
 from verbs.policies import policy_templates
+from fonts.font_manager import FontManager
 
 from counties.county_manager import CountyManager
 
@@ -71,6 +72,9 @@ class Engine:
 
         self.turn_number = 1
         self.turn_summary_text = list()
+
+        self.fontmanager = FontManager()
+        self.fontmanager.add_font("number_font")
 
     def render(self, root_console: Console) -> None:
         """ Renders the game to console """
