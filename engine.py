@@ -97,13 +97,13 @@ class Engine:
         else:
             self.end_turn_effect.set_tiles(root_console.tiles_rgb)
 
-        #TEMP
+        # TEMP
         root_console.print(18, 1, str(self.mouse_location))
         root_console.print(3, 1, "Power:" + str(self.power))
         root_console.print(3, 2, "Support:" + str(self.support))
         root_console.print(3, 3, "Turn Number:" + str(self.turn_number))
         root_console.print(18, 2, "Activity Points:" +
-                               str(self.activity_points))
+                           str(self.activity_points))
 
     def update(self):
         """ Engine update tick """
@@ -146,8 +146,8 @@ class Engine:
         self.game_sections = {}
         self.game_sections["statbar"] = Statbar(
             self, 0, 0, self.screen_width, 5)
-        self.game_sections["map"] = Map(self,0, 5, 75, 49)
-        self.game_sections["countyinfo"] = CountyInfo(self,75, 5, 53, 49)
+        self.game_sections["map"] = Map(self, 0, 5, 75, 49)
+        self.game_sections["countyinfo"] = CountyInfo(self, 75, 5, 53, 49)
         self.game_sections["actionsbar"] = ActivitiesBar(
             self, 0, 54, self.screen_width, 10)
         self.game_sections["confirmationDialog"] = Confirmation(
@@ -240,9 +240,10 @@ class Engine:
         self.turn_summary_text.clear()
 
         # Process news article based on what activities are about to happen
-        total_power, total_support = 0 , 0
+        total_power, total_support = 0, 0
         for county, values in self.county_manager.process_all_activites().items():
-            county_summary = [county,values[0],values[1]]
+            county_summary = [county, values[0],
+                              values[1], values[2], values[3]]
             self.turn_summary_text.append(county_summary)
             self.power += values[0]
             total_power += values[0]
